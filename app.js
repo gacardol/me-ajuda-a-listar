@@ -1,67 +1,71 @@
+const SHEETDB_URL = 'https://sheetdb.io/api/v1/7x95jmwaouxrl';
 let flowData = {};
 let hist = [];
+let userContact = '';
 
 async function init() {
   try {
-    const res = await fetch('flow.json');
-    flowData = await res.json();
-    render('inicio');
+    const r = await fetch('flow.json');
+    flowData = await r.json();
+    showContact();
   } catch(e) {
-    document.getElementById('content').innerHTML = '<div class="warning">Erro ao carregar. Recarregue a pagina.</div>';
+    document.getElementById('app').innerHTML = '<p>Erro ao carregar. Recarregue a pagina.</p>';
   }
 }
 
-function render(id) {
+function showContact() {
+  document.getElementById('app').innerHTML = `
+    <div class="card">
+      <h2>Ola! Vou te ajudar a listar seu produto na Amazon</h2>
+      <p class="info">Primeiro, me deixe um contato pra te ajudarmos se precisar. E 100% gratuito!</p>
+      <div class="contact-form">
+        <label>Seu WhatsApp ou Email:</label>
+        <input type="text" id="contactInput" placeholder="(11) 99999-9999 ou email@email.com" />
+        <button class="btn" onclick="startFlow()">Comecar!</button>
+      </div>
+      <p class="skip-link" onclick="startFlow()">Pular e comecar direto</p>
+    </div>
+  `;
+}
+
+function startFlow() {
+  const input = document.getElementById('contactInput');
+  userContact = input ? input.value.trim() : '';
+  if (userContact) {
+    sendToSheet(userContact, '', 'inicio');
+  }
+  showScreen('inicio');
+}
+
+function sendToSheet(whatsapp, observacao, tela) {
+  fetch(SHEETDB_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({data: {whatsapp: whatsapp, observacao: observacao, tela: tela}})
+  }).catch(()=>{});
+}
+
+function showScreen(id) {
   const s = flowData[id];
-  if (!s) return;
-  let h = '';
-  if (s.question) h += '<h2 class="question">' + s.question + '</h2>';
-  if (s.info) h += '<div class="info">' + fmt(s.info) + '</div>';
-  if (s.success) h += '<div class="success">' + fmt(s.success) + '</div>';
-  if (s.highlight) h += '<div class="highlight">' + fmt(s.highlight) + '</div>';
-  if (s.warning) h += '<div class="warning">' + fmt(s.warning) + '</div>';
-  if (s.checklist) {
-    h += '<div class="checklist">';
-    s.checklist.forEach(function(i){ h += '<div class="checklist-item">' + i + '</div>'; });
-    h += '</div>';
-  }
-  if (s.steps) {
-    h += '<div class="steps">';
-    s.steps.forEach(function(i){ h += '<div class="step-item">' + i + '</div>'; });
-    h += '</div>';
-  }
-  if (s.options) {
-    h += '<div class="options">';
-    s.options.forEach(function(o, idx){
-      if (o.link) {
-        h += '<a href="' + o.link + '" target="_blank" class="link-btn"><span class="emoji">&#128279;</span>' + o.text + '</a>';
-      } else if (o.next) {
-        var num = idx + 1;
-        h += '<div class="option-btn" onclick="goTo(\'' + o.next + '\')"><span class="emoji">' + num + '</span>' + o.text + '</div>';
-      }
-    });
-    h += '</div>';
-  }
-  document.getElementById('content').innerHTML = h;
-  document.getElementById('content').dataset.current = id;
-  renderFooter(id);
-  window.scrollTo(0,0);
+  if (!s) { document.getElementById('app').innerHTML = '<p>Tela nao encontrada.</p>'; return; }
+  hist.push(id);
+  let h = `<div class="card"><h2>${s.question}</h2>`;
+  if (s.success) h += `<div class="success">${s.success}</div>`;
+  if (s.info) h += `<p class="info">${s.info}</p>`;
+  if (s.warning) h += `<div class="warning">${s.warning}</div>`;
+  if (s.highlight) h += `<div class="highlight">${s.highlight}</div>`;
+  if (s.steps) { h += '<div class="steps">'; s.steps.forEach((st,i) => { h += `<div class="step"><span class="step-num">${i+1}</span>${st}</div>`; }); h += '</div>'; }
+  if (s.checklist) { h += '<div class="checklist">'; s.checklist.forEach(c => { h += `<div class="check-item">&#9745; ${c}</div>`; }); h += '</div>'; }
+  if (s.options) { h += '<div class="options">'; s.options.forEach(o => { if (o.link) { h += `<a href="${o.link}" target="_blank" class="btn btn-link">${o.text}</a>`; } else { h += `<button class="btn" onclick="showScreen('${o.next}')">${o.text}</button>`; } }); h += '</div>'; }
+  if (hist.length > 1) { h += `<div class="footer"><button class="footer-btn" onclick="goBack()">Voltar</button><button class="footer-btn" onclick="showScreen('inicio')">Inicio</button><button class="footer-btn" onclick="window.open('https://amazonexteu.qualtrics.com/jfe/form/SV_eEhccc2rqm5WURw','_blank')">Lista pra mim</button></div>`; }
+  h += '</div>';
+  document.getElementById('app').innerHTML = h;
 }
 
-function renderFooter(id) {
-  const f = document.getElementById('footer');
-  if (id === 'inicio') { f.innerHTML = ''; return; }
-  f.innerHTML = '<div class="footer-btn" onclick="goBack()">Voltar</div><div class="footer-btn" onclick="goHome()">Inicio</div><a class="footer-btn" href="https://amazonexteu.qualtrics.com/jfe/form/SV_eEhccc2rqm5WURw" target="_blank">Lista pra mim</a>';
+function goBack() {
+  hist.pop();
+  const prev = hist.pop();
+  if (prev) showScreen(prev); else showContact();
 }
-
-function goTo(id) {
-  var cur = document.getElementById('content').dataset.current || 'inicio';
-  hist.push(cur);
-  render(id);
-}
-
-function goBack() { if (hist.length > 0) render(hist.pop()); }
-function goHome() { hist = []; render('inicio'); }
-function fmt(t) { return t ? t.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>') : ''; }
 
 init();
