@@ -3,7 +3,7 @@ let hist = [];
 
 async function init() {
   try {
-    const res = await fetch('data/flow.json');
+    const res = await fetch('flow.json');
     flowData = await res.json();
     render('inicio');
   } catch(e) {
