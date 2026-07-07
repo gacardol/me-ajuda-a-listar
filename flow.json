@@ -1,0 +1,751 @@
+{
+  "inicio": {
+    "question": "Como posso te ajudar a listar?",
+    "info": "Escolha uma opcao abaixo:",
+    "options": [
+      {
+        "text": "Listar 1 produto (manual)",
+        "next": "manual_novo_usado"
+      },
+      {
+        "text": "Listar muitos produtos (massivo)",
+        "next": "massivo_inicio"
+      },
+      {
+        "text": "Quero que listem pra mim",
+        "link": "https://amazonexteu.qualtrics.com/jfe/form/SV_eEhccc2rqm5WURw"
+      }
+    ]
+  },
+  "manual_novo_usado": {
+    "question": "Seu produto e novo ou usado?",
+    "options": [
+      {
+        "text": "Novo",
+        "next": "novo_ean"
+      },
+      {
+        "text": "Usado / Seminovo",
+        "next": "usado"
+      }
+    ]
+  },
+  "novo_ean": {
+    "question": "Seu produto tem codigo de barras (EAN)?",
+    "info": "EAN = codigo de barras na embalagem (numeros embaixo das barrinhas).",
+    "options": [
+      {
+        "text": "Sim, tenho EAN",
+        "next": "gs1_valida"
+      },
+      {
+        "text": "Nao tenho EAN",
+        "next": "sem_ean_marca"
+      }
+    ]
+  },
+  "gs1_valida": {
+    "question": "Valide seu EAN antes de listar!",
+    "info": "Confirme que seu EAN esta ativo e correto no site do GS1:",
+    "steps": [
+      "Clique no link abaixo",
+      "Digite o numero do EAN",
+      "Confira se aparece como valido"
+    ],
+    "options": [
+      {
+        "text": "Validar EAN no GS1",
+        "link": "https://www.gs1.org/services/verified-by-gs1/results"
+      },
+      {
+        "text": "EAN validado! Proximo passo",
+        "next": "com_ean_marca"
+      },
+      {
+        "text": "Meu EAN deu invalido",
+        "next": "ean_invalido"
+      }
+    ]
+  },
+  "ean_invalido": {
+    "question": "EAN invalido - O que fazer:",
+    "info": "Se o EAN nao apareceu como valido, pode ser que:",
+    "checklist": [
+      "O fabricante ainda nao ativou no GS1",
+      "O numero foi digitado errado",
+      "O EAN e falsificado"
+    ],
+    "highlight": "Se o EAN e do seu produto e voce comprou do GS1 Brasil, entre em contato com o GS1 pra ativar. Se nao, liste sem EAN (como generico).",
+    "options": [
+      {
+        "text": "Listar sem EAN (generico)",
+        "next": "sem_ean_marca"
+      },
+      {
+        "text": "Voltar",
+        "next": "novo_ean"
+      }
+    ]
+  },
+  "com_ean_marca": {
+    "question": "Seu produto tem marca na embalagem?",
+    "info": "A marca precisa estar impressa, gravada ou estampada no produto ou embalagem. Adesivo ou costurado NAO conta.",
+    "options": [
+      {
+        "text": "Sim, tem marca",
+        "next": "com_ean_tipo_marca"
+      },
+      {
+        "text": "Nao tem marca (generico)",
+        "next": "listar_generico_com_ean"
+      }
+    ]
+  },
+  "com_ean_tipo_marca": {
+    "question": "A marca e sua ou voce revende?",
+    "options": [
+      {
+        "text": "Marca propria (sou dono)",
+        "next": "marca_propria_inpi"
+      },
+      {
+        "text": "Revendo (marca de terceiro)",
+        "next": "revendedor_nf"
+      }
+    ]
+  },
+  "marca_propria_inpi": {
+    "question": "Voce tem registro no INPI?",
+    "info": "INPI = Instituto Nacional de Propriedade Industrial. E o registro oficial da sua marca no Brasil.",
+    "options": [
+      {
+        "text": "Sim, tenho INPI (aprovado ou em processo)",
+        "next": "marca_propria_brand_registry"
+      },
+      {
+        "text": "Nao tenho INPI",
+        "next": "marca_propria_sem_inpi"
+      }
+    ]
+  },
+  "marca_propria_brand_registry": {
+    "question": "Registre sua marca no Brand Registry!",
+    "info": "Com INPI voce pode registrar no Brand Registry da Amazon e ter beneficios exclusivos:",
+    "checklist": [
+      "Protecao contra copias",
+      "A+ Content (pagina premium)",
+      "Sponsored Brands (ads avancado)",
+      "Loja propria na Amazon"
+    ],
+    "steps": [
+      "Acesse o Brand Registry (link abaixo)",
+      "Cadastre sua marca com numero INPI",
+      "Aguarde aprovacao (3-10 dias)",
+      "Depois volte e liste normalmente!"
+    ],
+    "options": [
+      {
+        "text": "Ir para Brand Registry",
+        "link": "https://brandservices.amazon.com.br"
+      },
+      {
+        "text": "Ja tenho Brand Registry, quero listar",
+        "next": "listar_com_marca"
+      },
+      {
+        "text": "Voltar",
+        "next": "marca_propria_inpi"
+      }
+    ]
+  },
+  "marca_propria_sem_inpi": {
+    "question": "Sem INPI - Seu produto tem a logo/nome da marca VISIVEL no produto?",
+    "info": "Precisa estar impresso, gravado ou moldado. NAO pode ser adesivo ou costurado.",
+    "options": [
+      {
+        "text": "Sim, nome/logo aparece no produto",
+        "next": "marca_sem_inpi_fotos"
+      },
+      {
+        "text": "Nao aparece no produto",
+        "next": "listar_generico_sem_ean"
+      }
+    ]
+  },
+  "marca_sem_inpi_fotos": {
+    "question": "Voce consegue listar com marca mesmo sem INPI!",
+    "info": "A Amazon aceita se voce comprovar com fotos que a marca aparece no produto.",
+    "steps": [
+      "Tire fotos claras mostrando o nome/logo no produto",
+      "Na hora de listar, selecione sua marca",
+      "O sistema vai pedir comprovacao - envie as fotos",
+      "Aguarde aprovacao"
+    ],
+    "highlight": "Dica: Ter embalagem propria com a marca impressa ajuda muito na aprovacao!",
+    "options": [
+      {
+        "text": "Entendi! Ir para listar",
+        "next": "listar_com_marca"
+      },
+      {
+        "text": "Voltar",
+        "next": "marca_propria_sem_inpi"
+      }
+    ]
+  },
+  "revendedor_nf": {
+    "question": "Voce tem Nota Fiscal com minimo de 10 produtos dessa marca na MESMA NF?",
+    "warning": "Precisa ser 10 ou mais unidades na MESMA nota fiscal. Nao pode juntar notas diferentes.",
+    "options": [
+      {
+        "text": "Sim, tenho NF com 10+ produtos",
+        "next": "revendedor_listar"
+      },
+      {
+        "text": "Nao tenho NF ou tem menos de 10",
+        "next": "revendedor_sem_nf"
+      }
+    ]
+  },
+  "revendedor_listar": {
+    "question": "Otimo! Vamos listar como revendedor:",
+    "steps": [
+      "Va em Seller Central - Catalogo - Adicionar produto",
+      "Busque pelo nome ou EAN do produto",
+      "Clique em 'Vender este produto' se ja existir",
+      "Se nao existir, clique em 'Criar nova oferta'",
+      "Complete os dados e salve"
+    ],
+    "info": "Se o sistema pedir autorizacao de marca, ele vai solicitar sua NF automaticamente.",
+    "options": [
+      {
+        "text": "Deu certo! Listei",
+        "next": "sucesso"
+      },
+      {
+        "text": "Deu erro ou pediu autorizacao",
+        "next": "erro_autorizacao"
+      },
+      {
+        "text": "Voltar",
+        "next": "revendedor_nf"
+      }
+    ]
+  },
+  "revendedor_sem_nf": {
+    "question": "Sem NF com 10+ produtos, suas opcoes sao:",
+    "info": "A Amazon exige NF com minimo de 10 produtos da mesma marca para autorizar revendedores.",
+    "options": [
+      {
+        "text": "Vou conseguir a NF e voltar depois",
+        "next": "inicio"
+      },
+      {
+        "text": "Quero listar como generico (sem marca)",
+        "next": "listar_generico_sem_ean"
+      },
+      {
+        "text": "Voltar",
+        "next": "revendedor_nf"
+      }
+    ]
+  },
+  "sem_ean_marca": {
+    "question": "Seu produto tem marca ou logo na embalagem/produto?",
+    "info": "Impresso, gravado ou estampado. Adesivo ou costurado NAO conta.",
+    "options": [
+      {
+        "text": "Sim, tem marca",
+        "next": "sem_ean_tipo_marca"
+      },
+      {
+        "text": "Nao tem marca",
+        "next": "listar_generico_sem_ean"
+      }
+    ]
+  },
+  "sem_ean_tipo_marca": {
+    "question": "A marca e sua ou voce revende?",
+    "options": [
+      {
+        "text": "Marca propria",
+        "next": "marca_propria_inpi"
+      },
+      {
+        "text": "Revendo (marca de terceiro)",
+        "next": "revendedor_nf"
+      }
+    ]
+  },
+  "listar_generico_com_ean": {
+    "question": "Listar produto generico COM EAN:",
+    "steps": [
+      "Va em Seller Central - Catalogo - Adicionar produto",
+      "Busque pelo EAN",
+      "Se ja existir, clique em 'Vender este produto'",
+      "Se nao existir, clique em 'Criar nova oferta'",
+      "No campo Marca coloque: Generico",
+      "No campo ID coloque o EAN",
+      "Complete titulo, descricao, imagens e preco",
+      "Salve!"
+    ],
+    "options": [
+      {
+        "text": "Deu certo!",
+        "next": "sucesso"
+      },
+      {
+        "text": "Deu erro",
+        "next": "erros_inicio"
+      },
+      {
+        "text": "Voltar",
+        "next": "com_ean_marca"
+      }
+    ]
+  },
+  "listar_generico_sem_ean": {
+    "question": "Listar produto generico SEM EAN:",
+    "steps": [
+      "Va em Seller Central - Catalogo - Adicionar produto",
+      "Clique em 'Criar nova oferta'",
+      "Selecione a categoria do produto",
+      "No campo Marca coloque: Generico",
+      "No campo ID do produto: clique em 'Nao tenho ID'",
+      "O sistema vai pedir isencao de EAN",
+      "Complete titulo, descricao, imagens e preco",
+      "Salve!"
+    ],
+    "warning": "Sem EAN seu produto entra como generico e NAO disputa Buy Box. Mas funciona!",
+    "options": [
+      {
+        "text": "Deu certo!",
+        "next": "sucesso"
+      },
+      {
+        "text": "Deu erro",
+        "next": "erros_inicio"
+      },
+      {
+        "text": "Voltar",
+        "next": "sem_ean_marca"
+      }
+    ]
+  },
+  "listar_com_marca": {
+    "question": "Listar produto com marca registrada:",
+    "steps": [
+      "Va em Seller Central - Catalogo - Adicionar produto",
+      "Busque pelo nome ou EAN",
+      "Se ja existir, clique em 'Vender este produto'",
+      "Se nao existir, clique em 'Criar nova oferta'",
+      "Selecione SUA MARCA no campo de marca",
+      "Complete todos os campos",
+      "Salve!"
+    ],
+    "highlight": "Com Brand Registry ativo, voce tem mais controle sobre a pagina do produto!",
+    "options": [
+      {
+        "text": "Deu certo!",
+        "next": "sucesso"
+      },
+      {
+        "text": "Deu erro",
+        "next": "erros_inicio"
+      },
+      {
+        "text": "Voltar",
+        "next": "marca_propria_inpi"
+      }
+    ]
+  },
+  "erro_autorizacao": {
+    "question": "O sistema pediu autorizacao de marca:",
+    "info": "Isso e normal! A Amazon precisa verificar que voce pode vender essa marca.",
+    "steps": [
+      "O sistema abre um chamado automaticamente",
+      "Envie a NF com 10+ produtos da marca (mesma NF)",
+      "Aguarde a analise (3-5 dias uteis)",
+      "Voce recebe o resultado por email e no Seller Central"
+    ],
+    "options": [
+      {
+        "text": "Aprovaram! Listei",
+        "next": "sucesso"
+      },
+      {
+        "text": "Recusaram minha NF",
+        "next": "nf_recusada"
+      },
+      {
+        "text": "Voltar",
+        "next": "revendedor_listar"
+      }
+    ]
+  },
+  "nf_recusada": {
+    "question": "NF recusada - Confira esses pontos:",
+    "checklist": [
+      "NF emitida nos ultimos 365 dias?",
+      "NF tem 10+ unidades da MESMA marca?",
+      "Nome da marca na NF bate com a marca do produto?",
+      "NF esta legivel (nao cortada/borrada)?",
+      "NF em nome da sua empresa (mesmo CNPJ)?"
+    ],
+    "options": [
+      {
+        "text": "Corrigi e reenviei",
+        "next": "erro_autorizacao"
+      },
+      {
+        "text": "Ta tudo certo mas recusou mesmo assim",
+        "next": "nf_recusada_ajuda"
+      },
+      {
+        "text": "Voltar",
+        "next": "erro_autorizacao"
+      }
+    ]
+  },
+  "nf_recusada_ajuda": {
+    "question": "NF correta mas recusou? Abra um chamado:",
+    "steps": [
+      "Va em Seller Central - Ajuda (canto superior)",
+      "Clique em Obter Ajuda",
+      "Busque por 'autorizacao de marca'",
+      "Localize o chamado e clique em Responder",
+      "Explique que a NF atende os requisitos",
+      "Peca revisao humana"
+    ],
+    "info": "Se nao conseguir resolver, entre em contato com seu Account Manager (AM).",
+    "options": [
+      {
+        "text": "Resolveu!",
+        "next": "sucesso"
+      },
+      {
+        "text": "Nao resolveu",
+        "next": "inicio"
+      },
+      {
+        "text": "Voltar",
+        "next": "nf_recusada"
+      }
+    ]
+  },
+  "erros_inicio": {
+    "question": "Qual erro apareceu?",
+    "options": [
+      {
+        "text": "Erro no EAN (invalido ou duplicado)",
+        "next": "erro_ean"
+      },
+      {
+        "text": "Pediu autorizacao de marca",
+        "next": "erro_autorizacao"
+      },
+      {
+        "text": "Categoria restrita (precisa aprovacao)",
+        "next": "erro_categoria"
+      },
+      {
+        "text": "Erro de atributo obrigatorio",
+        "next": "erro_atributo"
+      },
+      {
+        "text": "Imagem rejeitada",
+        "next": "erro_imagem"
+      },
+      {
+        "text": "Outro erro",
+        "next": "erro_outro"
+      }
+    ]
+  },
+  "erro_ean": {
+    "question": "Erro no EAN:",
+    "info": "Possiveis causas e solucoes:",
+    "checklist": [
+      "EAN ja existe com outra marca: voce foi redirecionado pra 'Vender este produto' (e correto!)",
+      "EAN invalido: valide no GS1 e tente novamente",
+      "EAN duplicado no seu catalogo: verifique se ja listou esse produto"
+    ],
+    "options": [
+      {
+        "text": "Validar EAN no GS1",
+        "link": "https://www.gs1.org/services/verified-by-gs1/results"
+      },
+      {
+        "text": "Listar sem EAN",
+        "next": "listar_generico_sem_ean"
+      },
+      {
+        "text": "Voltar",
+        "next": "erros_inicio"
+      }
+    ]
+  },
+  "erro_categoria": {
+    "question": "Categoria restrita!",
+    "info": "Algumas categorias precisam de aprovacao antes de vender. Geralmente pedem documentos como NF, certificados ANVISA, INMETRO ou ANATEL.",
+    "steps": [
+      "Clique em 'Solicitar aprovacao' quando aparecer",
+      "Prepare os documentos solicitados",
+      "Envie e aguarde 5-10 dias uteis"
+    ],
+    "options": [
+      {
+        "text": "Ver categorias restritas",
+        "link": "https://sellercentral.amazon.com.br/help/hub/reference/external/G200164330?locale=pt-BR"
+      },
+      {
+        "text": "Voltar",
+        "next": "erros_inicio"
+      }
+    ]
+  },
+  "erro_atributo": {
+    "question": "Erro de atributo obrigatorio:",
+    "info": "O sistema esta pedindo um campo que voce nao preencheu. Campos obrigatorios mais comuns:",
+    "checklist": [
+      "Titulo do produto",
+      "Marca",
+      "Imagem principal (fundo branco)",
+      "Preco",
+      "Quantidade em estoque",
+      "Condicao (novo/usado)",
+      "Categoria"
+    ],
+    "highlight": "Volte na pagina do produto e preencha o campo que esta em vermelho/destaque.",
+    "options": [
+      {
+        "text": "Corrigi! Deu certo",
+        "next": "sucesso"
+      },
+      {
+        "text": "Voltar",
+        "next": "erros_inicio"
+      }
+    ]
+  },
+  "erro_imagem": {
+    "question": "Imagem rejeitada:",
+    "info": "A Amazon tem regras para imagens. Confira:",
+    "checklist": [
+      "Fundo BRANCO puro (RGB 255,255,255)",
+      "Minimo 1000x1000 pixels",
+      "Produto ocupa 85% do espaco",
+      "Sem textos, logos ou marcas d'agua",
+      "Sem embalagem transparente na frente",
+      "Formato JPG, PNG ou GIF"
+    ],
+    "highlight": "App gratuito pra remover fundo: remove.bg ou PhotoRoom",
+    "options": [
+      {
+        "text": "Corrigi a imagem! Deu certo",
+        "next": "sucesso"
+      },
+      {
+        "text": "Voltar",
+        "next": "erros_inicio"
+      }
+    ]
+  },
+  "erro_outro": {
+    "question": "Outro erro?",
+    "info": "Se o erro nao esta listado aqui, tente:",
+    "steps": [
+      "Copie a mensagem de erro exata",
+      "Va em Seller Central - Ajuda - Obter Ajuda",
+      "Cole a mensagem e abra um chamado",
+      "Ou entre em contato com seu Account Manager"
+    ],
+    "options": [
+      {
+        "text": "Resolveu!",
+        "next": "sucesso"
+      },
+      {
+        "text": "Voltar ao inicio",
+        "next": "inicio"
+      }
+    ]
+  },
+  "usado": {
+    "question": "Produto Usado / Seminovo",
+    "info": "Para vender produtos usados, a Amazon tem o programa Amazon Seminovos:",
+    "steps": [
+      "Acesse o link abaixo",
+      "Cadastre-se no programa Seminovos",
+      "Siga as instrucoes de listagem especificas"
+    ],
+    "options": [
+      {
+        "text": "Ir para Amazon Seminovos",
+        "link": "https://venda.amazon.com.br/seminovos"
+      },
+      {
+        "text": "Voltar",
+        "next": "manual_novo_usado"
+      }
+    ]
+  },
+  "massivo_inicio": {
+    "question": "Listagem Massiva (muitos produtos)",
+    "info": "Para listar muitos produtos de uma vez, a melhor opcao depende do seu caso:",
+    "options": [
+      {
+        "text": "Tenho integrador (Bling, Tiny, etc)",
+        "next": "massivo_integrador"
+      },
+      {
+        "text": "Ja vendo em outro marketplace e tenho planilha",
+        "next": "massivo_planilha"
+      },
+      {
+        "text": "Nunca vendi online (so tenho fotos/anotacoes)",
+        "next": "massivo_zero"
+      },
+      {
+        "text": "Quero que listem pra mim",
+        "link": "https://amazonexteu.qualtrics.com/jfe/form/SV_eEhccc2rqm5WURw"
+      }
+    ]
+  },
+  "massivo_integrador": {
+    "question": "Voce tem integrador!",
+    "info": "Se voce usa Bling, Tiny, Ideris, Anymarket ou outro integrador, ele ja faz a listagem massiva pra voce!",
+    "steps": [
+      "Acesse seu integrador",
+      "Conecte com a Amazon (se ainda nao fez)",
+      "Sincronize seus produtos",
+      "O integrador envia tudo pra Amazon automaticamente"
+    ],
+    "highlight": "Se deu erro de integracao, entre em contato com o suporte do seu integrador. Eles conhecem os erros mais comuns!",
+    "options": [
+      {
+        "text": "Deu certo!",
+        "next": "sucesso"
+      },
+      {
+        "text": "Erros na integracao - quero listar manual",
+        "next": "massivo_planilha"
+      },
+      {
+        "text": "Voltar",
+        "next": "massivo_inicio"
+      }
+    ]
+  },
+  "massivo_planilha": {
+    "question": "Listagem por planilha:",
+    "info": "A Amazon aceita upload de planilha Excel (.xlsx) com todos os seus produtos de uma vez.",
+    "steps": [
+      "Seller Central - Catalogo - Adicionar produtos via upload",
+      "Baixe o modelo de planilha da sua categoria",
+      "Preencha os dados dos produtos (1 linha por SKU)",
+      "Para variacoes: 1 linha SKU pai + 1 linha por variacao",
+      "Faca upload da planilha preenchida",
+      "Aguarde o processamento (pode levar algumas horas)"
+    ],
+    "highlight": "Dica: Se voce ja tem planilha de outro marketplace (Mercado Livre, Shopee), use ela como base! Ajuste os campos pro formato Amazon.",
+    "options": [
+      {
+        "text": "Tutorial: como preencher a planilha",
+        "next": "massivo_tutorial_planilha"
+      },
+      {
+        "text": "Como colocar imagens na planilha",
+        "next": "massivo_imagens"
+      },
+      {
+        "text": "Deu certo!",
+        "next": "sucesso"
+      },
+      {
+        "text": "Voltar",
+        "next": "massivo_inicio"
+      }
+    ]
+  },
+  "massivo_tutorial_planilha": {
+    "question": "Como preencher a planilha Amazon:",
+    "info": "Campos essenciais em cada linha:",
+    "checklist": [
+      "SKU (codigo interno seu - invente um)",
+      "Titulo do produto",
+      "Marca (ou Generico)",
+      "Preco",
+      "Quantidade em estoque",
+      "EAN (se tiver)",
+      "Link da imagem principal",
+      "Descricao",
+      "Bullet points (pontos-chave)"
+    ],
+    "warning": "Para variacoes (tamanho, cor): crie 1 linha 'pai' + 1 linha para cada variacao (filho). Cada filho tem seu proprio SKU, EAN e preco.",
+    "options": [
+      {
+        "text": "Como colocar imagens",
+        "next": "massivo_imagens"
+      },
+      {
+        "text": "Voltar",
+        "next": "massivo_planilha"
+      }
+    ]
+  },
+  "massivo_imagens": {
+    "question": "Como colocar imagens na planilha:",
+    "info": "A planilha pede um LINK publico da imagem (URL). Voce precisa hospedar a imagem online primeiro.",
+    "steps": [
+      "Suba a imagem no Google Drive",
+      "Clique com botao direito - Compartilhar - Qualquer pessoa com link",
+      "Copie o link",
+      "Cole na coluna de imagem da planilha"
+    ],
+    "highlight": "Importante: O link precisa ser PUBLICO! Se for privado, a Amazon nao consegue acessar.",
+    "options": [
+      {
+        "text": "Entendi! Vou fazer",
+        "next": "massivo_planilha"
+      },
+      {
+        "text": "Voltar",
+        "next": "massivo_planilha"
+      }
+    ]
+  },
+  "massivo_zero": {
+    "question": "Primeira vez vendendo online:",
+    "info": "Se voce nunca vendeu online e so tem fotos ou anotacoes, o melhor caminho e:",
+    "options": [
+      {
+        "text": "Aprender a usar a planilha",
+        "next": "massivo_tutorial_planilha"
+      },
+      {
+        "text": "Listar 1 a 1 primeiro (mais facil)",
+        "next": "manual_novo_usado"
+      },
+      {
+        "text": "Quero que listem pra mim",
+        "link": "https://amazonexteu.qualtrics.com/jfe/form/SV_eEhccc2rqm5WURw"
+      }
+    ]
+  },
+  "sucesso": {
+    "question": "Parabens! Produto listado com sucesso!",
+    "success": "Seu produto ja esta na Amazon. Agora e so aguardar as vendas!",
+    "info": "Proximos passos para vender mais:",
+    "options": [
+      {
+        "text": "Listar outro produto",
+        "next": "inicio"
+      },
+      {
+        "text": "Dicas para vender mais",
+        "link": "https://venda.amazon.com.br"
+      }
+    ]
+  }
+}
